@@ -35,4 +35,5 @@ result = local_fisher_2d(amyload_pos_conv_seq, amyload_neg_conv_seq,
 _plot_local_fisher_2d(result, xlabel="mean volume",
                               ylabel="mean hydropathy",
                               pop1_label="amyloids",
-                              pop2_label="non amyloids")
+                              pop2_label="non amyloids",
+                              out_file_path=os.path.join(os.getcwd(), "test.png" ))

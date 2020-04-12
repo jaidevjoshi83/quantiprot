@@ -239,7 +239,7 @@ def local_fisher_2d(set1, set2, features=None, \
 
 
 def _plot_local_fisher_2d(fisher_res, xlabel="feat_1", ylabel="feat_2",
-                          pop1_label="pop_1", pop2_label="pop_2"):
+                          pop1_label="pop_1", pop2_label="pop_2", out_file_path=None, fig_width=8, fig_hight=8, fig_hspace=0.35, fig_wspace=0.25):
     """
     Plot results of the local Fisher's extact test in the 2d space.
 
@@ -277,6 +277,11 @@ def _plot_local_fisher_2d(fisher_res, xlabel="feat_1", ylabel="feat_2",
         for pos_y in range(len(fisher_or[0])):
             if abs(fisher_or[pos_x][pos_y]) == np.inf:
                 fisher_or[pos_x][pos_y] = np.sign(fisher_or[pos_x][pos_y])*vmax_abs
+
+    ##### Extra Fig perimeters added ################################
+    plt.figure(figsize=(fig_width, fig_hight)) # Figure size 
+    plt.subplots_adjust(hspace = fig_hspace, wspace = fig_wspace) # space between the subplots. 
+    ##################################################################
 
     plt.subplot(221)
     plt.pcolormesh(fisher_res["w_center_x"], fisher_res["w_center_y"],
@@ -320,4 +325,10 @@ def _plot_local_fisher_2d(fisher_res, xlabel="feat_1", ylabel="feat_2",
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title("Fisher test\np-value (logarithm of 10)")
-    plt.show()
+
+    #Savefig function added with preserving default behavior
+
+    if out_file_path==None:
+        plt.show()
+    else:
+        plt.savefig(out_file_path,dpi=300)
